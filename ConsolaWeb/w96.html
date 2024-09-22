@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Windows 95 Simulator</title>
+  <style>
+    body {
+      background-color: #008080;
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      color: white;
+      overflow: hidden;
+    }
+
+    .window {
+      background-color: #c0c0c0;
+      border: 2px solid #000;
+      border-radius: 5px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+      width: 400px;
+      height: 300px;
+      margin: 100px auto;
+      padding: 20px;
+      position: relative;
+      color: black;
+      z-index: 2; /* Asegura que las ventanas estén por encima de los iconos */
+    }
+    
+    .title-bar {
+      background-color: #008080;
+      color: #fff;
+      padding: 5px;
+      border-top-left-radius: 5px;
+      border-top-right-radius: 5px;
+      position: relative;
+    }
+    .title-bar .title {
+      margin-left: 10px;
+    }
+    .content {
+      padding: 10px;
+    }
+    .close-button {
+      position: absolute;
+      top: 5px;
+      right: 5px;
+      cursor: pointer;
+    }
+    .maximize-button {
+      position: absolute;
+      top: 5px;
+      right: 25px;
+      cursor: pointer;
+    }
+    .taskbar {
+      background-color: #808080;
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 99.5%;
+      padding: 5px;
+      box-shadow: 0 -3px 3px rgba(0, 0, 0, 0.5);
+      border-top: 2px solid #fff;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      z-index: 1; /* Asegura que la barra de tareas esté detrás de las ventanas */
+      color: black;
+    }
+    .start-button {
+      background-color: #c0c0c0;
+      color: black;
+      border: none;
+      padding: 5px 10px;
+      border-radius: 3px;
+      cursor: pointer;
+      margin-right: 10px;
+      background-image: url('https://upload.wikimedia.org/wikipedia/commons/thumb/3/3d/Windows_logo_-_1995.svg/1024px-Windows_logo_-_1995.svg.png');
+      background-repeat: no-repeat;
+      background-size: 16px 16px;  
+      box-shadow: inset 0 2px 2px rgba(255, 255, 255, 0.25), inset 0 -2px 2px rgba(0, 0, 0, 0.25);
+    }
+
+    .icono {
+      width: 10px;
+      height: 10px;
+      margin-right: 10px;
+      margin-left: 0;
+      padding-left: 0;
+    }
+
+    .taskbar-button {
+      background-color: #fff;
+      border: 1px solid #000;
+      padding: 5px 10px;
+      border-radius: 3px;
+      cursor: pointer;
+    }
+    .system-icons {
+      display: flex;
+      align-items: center;
+    }
+    .system-icon {
+      margin-right: 10px;
+      cursor: pointer;
+    }
+    .start-menu {
+      display: none;
+      position: absolute;
+      bottom: 40px;
+      left: 10px;
+      width: 200px;
+      background-color: #c0c0c0;
+      border: 1px solid #000;
+      border-radius: 5px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+      padding: 10px;
+    }
+    .folder {
+      display: inline-block;
+      margin: 5px;
+      cursor: pointer;
+    }
+    .folder-icon {
+      width: 50px;
+      height: 50px;
+      background: url('https://image.flaticon.com/icons/png/512/65/65099.png') no-repeat;
+      background-size: cover;
+    }
+    .folder-name {
+      text-align: center;
+      font-size: 12px;
+    }
+    .desktop-icon {
+      position: absolute;
+      left: 50px;
+      top: 50px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+    }
+
+    .mipc {
+      margin-top: 10px;
+      width: 100%; /* Ajusta el tamaño del icono según tus necesidades */
+      margin-left: 0%;
+    }
+
+    .folder-icon {
+      margin-top: 0;
+      width: 70px; /* Ajusta el tamaño del contenedor del icono según el tamaño del icono */
+      height: 70px; /* Ajusta el tamaño del contenedor del icono según el tamaño del icono */
+    }
+
+    .folder-name {
+      margin-top: 5px; /* Espacio entre el icono y el texto */
+      font-size: 12px; /* Tamaño del texto */
+    }
+
+    /* Estilos específicos para el icono de Internet Explorer */
+    .ie-icon {
+      position: absolute;
+      left: 50px; /* Ajusta la posición horizontal */
+      top: 200px; /* Ajusta la posición vertical */
+    }
+
+    .mie {
+      margin-top: 10px;
+      width: 100%; /* Ajusta el tamaño del icono según tus necesidades */
+      padding-right: 60%;
+    }
+
+    /* Estilos específicos para el icono de Proyectos */
+    .projects {
+      position: absolute;
+      left: 50px; /* Ajusta la posición horizontal */
+      top: 350px; /* Ajusta la posición vertical */
+    }
+
+    .mipro {
+      margin-top: 10px;
+      width: 100%; /* Ajusta el tamaño del icono según tus necesidades */
+      padding-right: 60%;
+    }
+
+    .frames {
+      width: 100%; /* Ancho del iframe */
+      height: 250px; /* Alto del iframe */
+      border: none;
+    }
+
+    .docu {
+      width: 100%; /* Ajusta el tamaño del icono según tus necesidades */
+    }
+
+  </style>
+</head>
+<body>
+
+  <div class="window" id="welcomeWindow">
+    <div class="title-bar">
+      <span class="title">Windows 95</span>
+      <span class="maximize-button" onclick="toggleMaximize('welcomeWindow')">□</span>
+      <span class="close-button" onclick="closeWindow('welcomeWindow')">X</span>
+    </div>
+    <div class="content">
+      <p>Bienvenido a este simulador de Windows 95</p>
+      <p>Es una demo en desarrollo, pero espero que te guste!</p>
+    </div>
+  </div>
+
+  <div class="taskbar">
+    <button class="start-button" onclick="toggleStartMenu()"><img src="media/win98.png" class="icono"/>Inicio</button>
+    <div id="clock" class="system-icons"></div>
+  </div>
+
+  <div id="startMenu" class="start-menu">
+    <ul>
+      <li><a href="arranque.html">Apagar</a></li>
+      <li><a href="w96.html">Reiniciar</a></li>
+    </ul>
+  </div>
+
+  <div id="myPCWindow" class="window" style="display: none;">
+    <div class="title-bar">
+      <span class="title">Mi PC</span>
+      <span class="maximize-button" onclick="toggleMaximize('myPCWindow')">□</span>
+      <span class="close-button" onclick="closeWindow('myPCWindow')">X</span>
+    </div>
+    <div class="content">
+      <div class="folder" onclick="openFolder('documents')">
+        <div class="folder-icon"><img src="media/carepta95.png" class="mipro"></div>
+        <div class="folder-name">Documentos</div>
+      </div>
+      <div class="folder" onclick="openFolder('pictures')">
+        <div class="folder-icon"><img src="media/carepta95.png" class="mipro"></div>
+        <div class="folder-name">Imágenes</div>
+      </div>
+      <div class="folder" onclick="openFolder('music')">
+        <div class="folder-icon"><img src="media/carepta95.png" class="mipro"></div>
+        <div class="folder-name">Música</div>
+      </div>
+      <div class="folder" onclick="openFolder('videos')">
+        <div class="folder-icon"><img src="media/carepta95.png" class="mipro"></div>
+        <div class="folder-name">Videos</div>
+      </div>
+      <div class="folder" onclick="openFolder('downloads')">
+        <div class="folder-icon"><img src="media/carepta95.png" class="mipro"></div>
+        <div class="folder-name">Descargas</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Código del icono "Este equipo" -->
+  <div class="folder desktop-icon" onclick="openWindow('myPCWindow')">
+    <div class="folder-icon">
+      <img src="media/pc.png" class="mipc"/>
+    </div>
+    <div class="folder-name">Este equipo</div>
+  </div>
+
+  <!-- Código del icono de Internet Explorer -->
+  <div class="ie-icon desktop-icon" onclick="openInternetExplorer()">
+    <div class="folder-icon">
+      <img src="media/ie.png" class="mie"/>
+    </div>
+    <div class="folder-name">Internet Explorer</div>
+  </div>
+
+  <!-- Ventana de Internet Explorer -->
+  <div id="internetExplorerWindow" class="window" style="display: none;">
+    <div class="title-bar">
+      <span class="title">Internet Explorer</span>
+      <span class="maximize-button" onclick="toggleMaximize('internetExplorerWindow')">□</span>
+      <span class="close-button" onclick="closeWindow('internetExplorerWindow')">X</span>
+    </div>
+    <div class="content">
+      <!-- Aquí puedes insertar un iframe que muestre un navegador web embebido -->
+      <iframe src="https://www.microsoft.com/es-es/download/internet-explorer.aspx" class="iframe"></iframe>
+    </div>
+  </div>
+
+  <!-- Código del icono de Proyectos -->
+  <div class="projects desktop-icon" onclick="openProyectos()">
+    <div class="folder-icon">
+      <img src="media/carepta95.png" class="mipro"/>
+    </div>
+    <div class="folder-name">Proyectos</div>
+  </div>
+
+  <!-- Ventana para los proyectos -->
+  <div id="allProjects" class="window" style="display: none;">
+    <div class="title-bar">
+      <span class="title">Proyectos</span>
+      <span class="maximize-button" onclick="toggleMaximize('allProjects')">□</span>
+      <span class="close-button" onclick="closeWindow('allProjects')">X</span>
+    </div>
+    <div class="content">
+      <!-- Aquí puedes insertar un iframe que muestre un navegador web embebido -->
+      <iframe src="add/proyectos95.html" class="frames"></iframe>
+    </div>
+  </div>
+
+
+  <script>
+    //Función para cerrar ventanas
+    function closeWindow(windowId) {
+      var windowElement = document.getElementById(windowId);
+      windowElement.style.display = 'none';
+    }
+
+    //Función para maximizar ventanas
+    function toggleMaximize(windowId) {
+      var windowElement = document.getElementById(windowId);
+      if (windowElement.style.width === '80%') {
+        windowElement.style.width = '400px';
+        windowElement.style.height = '300px';
+      } else {
+        windowElement.style.width = '80%';
+        windowElement.style.height = '600px';
+      }
+    }
+
+    //Función para abrir ventanas
+    function openWindow(windowId) {
+      var windowElement = document.getElementById(windowId);
+      windowElement.style.display = 'block'; // Asegura que la ventana se muestre
+    }
+
+    //Función para el contenido de "Este equipo"
+    function openFolder(folderName) {
+      alert("La carpeta " + folderName + " esta vacia.");
+    }
+
+    //Función para el botón de inicio
+    function toggleStartMenu() {
+      var startMenu = document.getElementById('startMenu');
+      if (startMenu.style.display === 'block') {
+        startMenu.style.display = 'none';
+      } else {
+        startMenu.style.display = 'block';
+      }
+    }
+
+    // Función para el reloj
+    function updateClock() {
+      var now = new Date();
+      var hours = now.getHours();
+      var minutes = now.getMinutes();
+      var seconds = now.getSeconds();
+
+      hours = hours < 10 ? '0' + hours : hours;
+      minutes = minutes < 10 ? '0' + minutes : minutes;
+      seconds = seconds < 10 ? '0' + seconds : seconds;
+
+      var timeString = hours + ':' + minutes;
+      document.getElementById('clock').textContent = timeString;
+    }
+
+    // Función para abrir Internet Explorer
+    function openInternetExplorer() {
+      // Abre la ventana de Internet Explorer
+      openWindow('internetExplorerWindow');
+    }
+
+    // Función para abrir Proyectos
+    function openProyectos() {
+      // Abre la ventana de Proyectos
+      openWindow('allProjects');
+    }
+
+    setInterval(updateClock, 1000);
+  </script>
+
+</body>
+</html>

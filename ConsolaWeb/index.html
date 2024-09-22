@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MS-DOS Simulator</title>
+    <link rel="stylesheet" href="style/principal.css">
+</head>
+<body>
+    <div class="console">
+        <!--<div class="console-img">
+            <img src="media/scanlines.png" id="scan" class="noselect" />
+            <img src="media/bezel.png" id="bezel" class="noselect" />
+        </div>-->
+        <div class="interference"></div>
+        <div class="console-output">
+            <span class="titulo">
+                PC de Ignacio. Consola.exe
+            </span>
+            <span class="descripcion">
+                Teclee 'help' para saber la lista de comandos disponibles.
+            </span>
+        </div>
+        <div class="console-input">
+            <input type="text" id="user-input" autofocus>
+        </div>
+    </div>
+
+    <div id="openConsoleButton" style="display: none;">
+        <a href="arranque.html"><button class="salir">Apagar PC</button></a>
+    </div>
+
+    <script src="scripts/principal.js"></script>
+</body>
+</html>

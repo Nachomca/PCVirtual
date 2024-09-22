@@ -1,0 +1,8 @@
+Hay que mejorar el sistema de gestion de carpetas de proyectos. Ahora mismo esta contruido de tal manera que la carpeta proyectos contiene un iframe con acceso a otro html
+con la estructura de carpetas de todos los proyectos (1,2,3 y 4). Se supone que al hacer click en uno de los proyectos hay 2 opciones: 
+	1º Ir a otro html con el contenido de la carpeta y asi sucesivamente.
+	2º Crear un sistema de gestion de ventanas como esta contruido en el escritorio, que cada proyecto sea una ventana creada especificamente y ocupen el iframe entero.
+No se si el modelo con el que está contruido ahora mismo es el más eficiente de cara a el momento en el que esté subido a la web. Quizas lo mejor sea hacer el modelo de ventanas
+dentro del html de w95 y crear ventanas acorde a lo q quiera mostrar.
+Además, hay que hacer que cuando se cierre la ventana, esta se destrulla, no se quite su visualizacion, ya que al volver a abrir la carpeta de proyectos, aparece lo que estaba
+viendo en el ultimo momento, no lo que esta carpeta contiene en si.

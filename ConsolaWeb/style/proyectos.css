@@ -1,0 +1,87 @@
+/*DE MS-DOS*/
+body {
+    font-family: monospace;
+    background-color: #000;
+    color: #0f0;
+    margin: 0;
+    padding: 20px;
+}
+
+.folder-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.folder {
+    width: 100px; /* Ajusta el tamaño según sea necesario */
+    height: 100px; /* Ajusta el tamaño según sea necesario */
+    text-align: center;
+    text-decoration: none;
+    color: #0f0;
+    position: relative;
+}
+
+.folder .folder-icon {
+    width: 60px; /* Ajusta el tamaño según sea necesario */
+    height: 60px; /* Ajusta el tamaño según sea necesario */
+    margin: 20px auto;
+}
+
+.folder span {
+    display: block;
+    font-size: 14px; /* Ajusta el tamaño según sea necesario */
+}
+
+.folder:hover {
+    text-decoration: underline;
+}
+
+.popup-container {
+    /* Tu código CSS existente */
+    overflow: hidden; /* Oculta el contenido que se desborda */
+}
+
+/*DE W95*/
+.body95 {
+    font-family: Arial, sans-serif;;
+    background-color: #c0c0c0;
+    color: black;
+    margin: 0;
+    padding: 20px;
+}
+
+.folder-container95 {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.folder95 {
+    width: 80px; /* Ajusta el tamaño según sea necesario */
+    height: 80px; /* Ajusta el tamaño según sea necesario */
+    text-align: center;
+    text-decoration: none;
+    color: black;
+    position: relative;
+}
+
+.folder95 .folder-icon95 {
+    width: 60px; /* Ajusta el tamaño según sea necesario */
+    height: 60px; /* Ajusta el tamaño según sea necesario */
+    margin: 10px auto;
+}
+
+.folder95 span {
+    display: block;
+    font-size: 14px; /* Ajusta el tamaño según sea necesario */
+}
+
+.folder95:hover {
+    text-decoration: underline;
+}
+
+.popup-container {
+    /* Tu código CSS existente */
+    overflow: hidden; /* Oculta el contenido que se desborda */
+}

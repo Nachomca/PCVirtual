@@ -1,0 +1,188 @@
+body {
+    font-family: monospace;
+    background-color: #000;
+    color: #0f0;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+/*ESTILO PARA EL BOTON DE APAGADO*/
+.salir {
+    background-color: #0f0;
+    color:#000;
+    padding: 10px;
+}
+
+/*TITULO Y DESCRIPCIÓN*/
+span {
+    display:block;
+    white-space: nowrap;
+    border-right: 0px solid;
+    
+    overflow: hidden;
+}
+
+.titulo {
+    width: 26ch;
+
+    animation: typing 2s steps(26),
+    blink .5s infinite step-end alternate;
+}
+.descripcion {
+    margin-top: 20px;
+    width: 58ch;
+
+    animation: typing 2s steps(58),
+    blink .5s infinite step-end alternate;
+}
+
+@keyframes typing {
+    from { width: 0}
+}
+
+@keyframes blink {
+    50% {
+        border-color: transparent}
+}
+
+/*CONSOLA DE COMANDOS*/
+.console {
+    position: relative;
+    width: 100%;
+    max-width: 900px;
+    border: 2px solid #0f0;
+    padding: 20px;
+    box-shadow: 0 0 10px rgba(0, 255, 0, 0.5);
+    background-color: #000;
+}
+
+/*.console-img {
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+#scan, #bezel {
+    position:absolute;
+    width:100%;
+    height: 100%;
+    top: 0%;
+    left: 0%;
+}*/
+
+/* Estilos para la capa de interferencia */
+.interference::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none; /* Evita que la capa de interferencia interfiera con los eventos del mouse */
+    z-index: -1; /* Coloca la capa por encima del contenido de la consola */
+    opacity: 0; /* Opacidad inicial */
+    background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII='); /* Imagen de ruido */
+    animation: interference-animation 5s infinite; /* Animación de interferencia */
+}
+
+@keyframes interference-animation {
+    0% {
+        opacity: 0.2; /* Opacidad inicial */
+    }
+    50% {
+        opacity: 0.4; /* Opacidad máxima */
+    }
+    100% {
+        opacity: 0.2; /* Opacidad final */
+    }
+}
+
+.console-output {
+    min-height: 400px;
+    max-height: 400px;
+    overflow-y: auto;
+    font-size: 20px;
+    scrollbar-color: rgba(0, 255, 0, 0.5) rgba(0, 255, 0, 0.2);
+    scrollbar-width: thin;
+}
+
+.console-input input {
+    background: none;
+    border:none;
+    outline: none;
+    color: #0f0;
+    font-family: monospace;
+    width: 100%;
+    font-size: 20px;
+}
+
+/* Estilos para la capa modal: iframe */
+iframe {
+    width: 30vw; /* Ancho del iframe */
+    height: 30vh; /* Alto del iframe */
+}
+
+/* Estilo del scrollbar */
+iframe::-webkit-scrollbar {
+    width: 10px; /* Ancho del scrollbar */
+}
+
+/* Estilo del thumb (el botón deslizante del scrollbar) */
+iframe::-webkit-scrollbar-thumb {
+    background-color: #0f0; /* Color del thumb */
+    border-radius: 10px; /* Radio de borde del thumb */
+}
+
+/* Estilo del track (la barra del scrollbar) */
+iframe::-webkit-scrollbar-track {
+    background-color: #000; /* Color del track */
+}
+
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5); /* Fondo semitransparente */
+    z-index: 1000; /* Z-index alto para que aparezca por encima de todo */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Estilos para el contenedor de la ventana modal */
+.modal-container {
+    background-color: #000000; /* Fondo blanco */
+    border: 2px solid #0f0; /* Borde verde */
+    box-shadow: 0 0 20px rgba(0, 255, 0, 0.5); /* Sombra */
+    padding: 20px;
+    position: relative;
+    max-width: 90%; /* Ancho máximo */
+    max-height: 90%; /* Altura máxima */
+    overflow: auto; /* Permitir desplazamiento si el contenido es demasiado grande */
+}
+
+/* Estilos para el botón de cerrar */
+.modal-close-button {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    cursor: pointer;
+    color: #0f0; /* Color verde */
+    font-size: 20px;
+}
+
+.modal-maximize-button {
+    position: absolute;
+    top: 10px;
+    right: 30px;
+    cursor: pointer;
+    color: #0f0; /* Color verde */
+    font-size: 20px;
+}

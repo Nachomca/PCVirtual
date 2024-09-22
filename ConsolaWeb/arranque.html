@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PC de IGNACIO-Sistema de arranque</title>
+  <style>
+    body {
+      font-family: "Courier New", Courier, monospace;
+      background-color: #000;
+      color: #fff;
+      text-align: left;
+      margin: 0;
+      padding: 0;
+      overflow: hidden;
+    }
+    #bootScreen {
+      padding: 10px;
+    }
+    #logo {
+      font-size: 14px;
+      white-space: pre;
+    }
+    #textDisplay {
+      font-size: 24px;
+      border: 2px solid #fff;
+      padding: 20px;
+      margin-top: 5%;
+      margin-left: 10%;
+      margin-right: 10%;
+      overflow-y: auto;
+      height: 60vh;
+    }
+    #osSelection {
+      display: none;
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-color: rgba(0, 0, 0, 0.8);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    .osOptions {
+      text-align: center;
+    }
+    .osButton {
+      background-color: #333;
+      border: 1px solid #666;
+      color: #fff;
+      padding: 10px 20px;
+      font-size: 18px;
+      margin: 10px;
+      cursor: pointer;
+      border-radius: 5px;
+      transition: background-color 0.3s;
+      font-family: "Courier New", Courier, monospace;
+    }
+    .osButton:hover {
+      background-color: #666;
+    }
+  </style>
+</head>
+<body>
+  <div id="bootScreen">
+    <pre id="logo">       _____       _           _______ _______ _______ 
+      (_____)     (_)         (_______|_______|_______)
+       _  _ _ ____ _ ____  _____ _     _ _       _____ _   _ 
+      |  | | |    | |    \| ___ | |   | | |     |  ___| | | |
+      |  | | |    | | | | | ____| |___| | |_____| |   | |_| |
+       \___/|_|  _|_|_|_|_|_____)_____/|_______)_|   |____/ 
+                (__)                                         
+        </pre>
+    <div id="textDisplay"></div>
+  </div>
+  <div id="osSelection">
+    <div class="osOptions">
+      <button class="osButton" data-href="w96.html">Windows 95</button>
+      <button class="osButton" data-href="index.html">MS-DOS guest mode</button>
+    </div>
+  </div>
+  <script>
+    const textDisplay = document.getElementById('textDisplay');
+    const bootText = `
+      Iniciando BIOS...
+      Nachomca Systems Entertainment v1.0PC. The power
+      Copyright (C) 2024, Ignacio Martínez de Carvajal Andrés.
+      .
+      Comprobando hardware...
+      Memoria RAM: 16MB
+      Procesador: Intel 80486
+      Disco Duro: 1TB
+      Tarjeta gráfica: VGA
+      Dispositivos detectados:
+      - Unidad de disco duro
+      - DVD-ROM
+      - Teclado
+      - Ratón
+      - Monitor
+      .
+      .
+      Cargando sistema operativo...
+
+      ¿Listo para revivir la nostalgia?
+      Recuerda, la curiosidad no mató al gato, ¡pero aquí no podemos garantizarlo!
+    `;
+
+    let osOptions = document.querySelectorAll('.osButton');
+
+    function printText(text) {
+      const newText = document.createTextNode(text);
+      textDisplay.appendChild(newText);
+      textDisplay.appendChild(document.createElement("br"));
+    }
+
+    function simulateBoot() {
+      const lines = bootText.trim().split('\n');
+      let index = 0;
+      const interval = setInterval(function() {
+        document.getElementById("osSelection").style.display = "none";
+        if (index < lines.length) {
+          printText(lines[index]);
+          textDisplay.scrollTop = textDisplay.scrollHeight;
+          index++;
+        } else {
+          clearInterval(interval);
+          setTimeout(function() {
+            document.getElementById("osSelection").style.display = "flex";
+          }, 2000);
+        }
+      }, 250);
+    }
+
+    function confirmSelection(event) {
+      const target = event.target;
+      if (target.classList.contains('osButton')) {
+        window.location.href = target.dataset.href;
+      }
+    }
+
+    document.addEventListener("DOMContentLoaded", function() {
+      simulateBoot();
+    });
+
+    document.getElementById('osSelection').addEventListener('click', confirmSelection);
+  </script>
+</body>
+</html>
