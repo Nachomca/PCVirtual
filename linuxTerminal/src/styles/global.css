@@ -1,0 +1,64 @@
+/* Estilos globales para Tailwind */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Estilos personalizados para los modos */
+.kali-mode {
+    @apply bg-[#0d1117] text-[#c9d1d9] font-mono transition-all duration-300;
+}
+
+.hacker-mode {
+    @apply bg-black text-green-500 font-mono transition-all duration-300;
+}
+
+.terminal-container {
+    @apply w-full h-screen rounded-xl p-4;
+}
+
+/* Estilo de cursor parpadeante */
+.xterm-cursor {
+    animation: blink-caret 0.8s step-end infinite;
+}
+
+@keyframes blink-caret {
+    50% {
+        opacity: 0;
+    }
+}
+
+/* Tipografía de consola más realista */
+.terminal-container {
+    font-family: 'Fira Code', 'Courier New', monospace;
+    font-size: 16px;
+}
+
+.terminal-container {
+    @apply w-full h-screen rounded-xl p-4;
+    border: 2px solid #444; /* Borde sutil */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.6); /* Sombra para el efecto retro */
+}
+  
+.kali-mode .xterm-viewport::-webkit-scrollbar-thumb {
+    background-color: #0087ff; /* Azul */
+  }
+  
+  .hacker-mode .xterm-viewport::-webkit-scrollbar-thumb {
+    background-color: #00ff00; /* Verde */
+  }
+  
+  /* Chrome, Edge y Safari */
+  .terminal-container .xterm-viewport::-webkit-scrollbar {
+    width: 6px;
+  }
+  
+  .terminal-container .xterm-viewport::-webkit-scrollbar-track {
+    background: #000000;
+  }
+  
+  /*.terminal-container .xterm-viewport::-webkit-scrollbar-thumb {
+    background-color: #00ff00;
+    border-radius: 10px;
+    border: 1px solid #000000;
+  }*/
+  
